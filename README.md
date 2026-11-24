@@ -22,7 +22,7 @@ $ agentmon incidents --state state/
 #2    open     critical unapproved_action       remediation         'kubectl_patch' called 1x without policy_authorized
 ```
 
-## Design
+## Architecture
 
 - **Read-only by construction.** The Kubernetes client has a single `get` method and refuses
   every API path except pod list/get and pod logs in the configured namespace, before any
@@ -43,7 +43,7 @@ $ agentmon incidents --state state/
   traffic, next to negative controls placed exactly at the limits, and scored per rule.
 
 ```mermaid
-flowchart LR
+flowchart TD
   subgraph agents[Monitored agents]
     A1[diagnostic / remediation pods] -->|stdout envelopes| L[(pod logs)]
     A2[RAG, CI Repair] -->|JSON Lines| F[(telemetry files)]
